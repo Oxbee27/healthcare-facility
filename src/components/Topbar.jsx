@@ -6,9 +6,7 @@ import {
 
 import Avatar from "./Avatar";
 
-import { PATIENT } from "../data/healthData";
-
-export default function Topbar({ onMenu }) {
+export default function Topbar({ patient, onMenu }) {
   return (
     <header
       className="
@@ -40,7 +38,7 @@ export default function Topbar({ onMenu }) {
       {/* Search */}
       <div
         className="
-          flex max-w-[360px] flex-1
+          flex min-w-0 max-w-[360px] flex-1
           items-center gap-2
           rounded-[9px]
           border border-[rgba(18,35,43,0.12)]
@@ -49,7 +47,7 @@ export default function Topbar({ onMenu }) {
           text-[rgba(18,35,43,0.5)]
         "
       >
-        <FaSearch size={16} />
+        <FaSearch size={16} className="shrink-0" />
 
         <input
           type="text"
@@ -94,17 +92,17 @@ export default function Topbar({ onMenu }) {
         />
       </button>
 
-      {/* User */}
-      <div className="flex items-center gap-2.5 pl-1.5">
+      {/* Current patient */}
+      <div className="flex min-w-0 items-center gap-2.5">
         <Avatar
-          src={PATIENT.avatar}
-          name={PATIENT.name}
+          src={patient.avatar}
+          name={patient.name}
           size="sm"
         />
 
-        <div className="hidden flex-col leading-tight sm:flex">
-          <strong className="text-[13.5px] font-semibold text-[#12232B]">
-            {PATIENT.name}
+        <div className="hidden min-w-0 flex-col leading-tight sm:flex">
+          <strong className="truncate text-[13.5px] font-semibold text-[#12232B]">
+            {patient.name}
           </strong>
 
           <span className="text-xs text-[rgba(18,35,43,0.5)]">

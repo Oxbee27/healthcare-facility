@@ -10,13 +10,25 @@ import {
 import Button from "../components/Button";
 import Avatar from "../components/Avatar";
 import { Panel, PanelHeader } from "../components/Panel";
-import { PATIENT } from "../data/healthData";
+import { PATIENTS } from "../data/healthData";
 
 export default function PatientDashboard({
+  patient,
   onBookAppointment,
   onNavigate,
+  onSelectPatient,
 }) {
-  const nextAppointment = PATIENT.nextAppointment || {
+  if (!patient) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <p className="text-sm text-[#4B5B5A]">
+          No patient selected.
+        </p>
+      </div>
+    );
+  }
+
+  const nextAppointment = patient.nextAppointment || {
     reason: "General consultation",
     provider: "Dr. Michael Chen",
     date: "September 9, 2026",
@@ -24,7 +36,7 @@ export default function PatientDashboard({
     type: "In-person visit",
   };
 
-  const tasks = PATIENT.tasks || [
+  const tasks = patient.tasks || [
     {
       id: 1,
       text: "Complete your health profile",
@@ -39,7 +51,7 @@ export default function PatientDashboard({
     },
   ];
 
-  const careTeam = PATIENT.careTeam || [
+  const careTeam = patient.careTeam || [
     {
       name: "Dr. Sarah Wilson",
       specialty: "Cardiologist",
@@ -58,7 +70,7 @@ export default function PatientDashboard({
   ];
 
   return (
-    <main>
+    <main className="w-full">
       {/* Page heading */}
       <div className="mb-[26px] flex flex-wrap items-end justify-between gap-5">
         <div>
@@ -67,27 +79,70 @@ export default function PatientDashboard({
           </p>
 
           <h1 className="m-0 mb-1.5 font-['Newsreader'] text-[30px] font-semibold leading-tight text-[#12232B]">
-            Good afternoon, {PATIENT.firstName || "Alex"}
+            Good afternoon, {patient.firstName || patient.name}
           </h1>
+
+          <p className="text-sm text-[#4B5B5A]">
+            Viewing health information for{" "}
+            <span className="font-semibold text-[#12232B]">
+              {patient.name}
+            </span>
+          </p>
         </div>
 
-        <Button
-          icon={<FaPlus size={15} />}
-          onClick={onBookAppointment}
-        >
-          Book an appointment
-        </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Patient selector */}
+          <select
+            value={patient.id}
+            onChange={(e) => {
+              const selected = PATIENTS.find(
+                (item) => item.id === Number(e.target.value)
+              );
+
+              if (selected && onSelectPatient) {
+                onSelectPatient(selected);
+              }
+            }}
+            className="
+              max-w-full
+              rounded-lg
+              border border-[rgba(18,35,43,0.12)]
+              bg-white
+              px-3 py-2.5
+              text-sm font-medium
+              text-[#12232B]
+              outline-none
+              focus:border-[#1F6F63]
+            "
+          >
+            {PATIENTS.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+
+          <Button
+            icon={<FaPlus size={15} />}
+            onClick={onBookAppointment}
+          >
+            Book an appointment
+          </Button>
+        </div>
       </div>
 
       {/* Next appointment */}
       <section
         className="
           flex flex-wrap items-center justify-between gap-6
-          rounded-2xl bg-[#12232B] px-7 py-[26px]
-          text-[#EDEFE9] shadow-sm
+          rounded-2xl bg-[#12232B]
+          px-5 py-6
+          sm:px-7
+          text-[#EDEFE9]
+          shadow-sm
         "
       >
-        <div>
+        <div className="min-w-0">
           <div className="mb-1.5 text-[12.5px] font-semibold text-[#7C9A78]">
             Your next visit
           </div>
@@ -142,9 +197,10 @@ export default function PatientDashboard({
                 <div
                   key={task.id}
                   className="
-                    flex items-center gap-4
+                    flex flex-wrap items-center gap-4
                     border-b border-[rgba(18,35,43,0.07)]
-                    px-6 py-4
+                    px-5 py-4
+                    sm:px-6
                     last:border-b-0
                   "
                 >
@@ -173,7 +229,7 @@ export default function PatientDashboard({
               hint="Last 6 visits"
             />
 
-            <div className="px-6 py-[22px]">
+            <div className="px-5 py-[22px] sm:px-6">
               <HealthChart />
 
               <div className="mt-3 flex flex-wrap gap-3.5">
@@ -199,7 +255,8 @@ export default function PatientDashboard({
                   className="
                     flex items-center gap-4
                     border-b border-[rgba(18,35,43,0.07)]
-                    px-6 py-4
+                    px-5 py-4
+                    sm:px-6
                     last:border-b-0
                   "
                 >
@@ -261,8 +318,9 @@ function QuickAction({ icon, text, onClick }) {
       className="
         flex w-full items-center gap-2
         border-b border-[rgba(18,35,43,0.07)]
-        bg-transparent px-6 py-4
+        bg-transparent px-5 py-4
         text-left
+        sm:px-6
         last:border-b-0
         hover:bg-[#F3F5EF]
       "
