@@ -5,106 +5,102 @@ import {
   FaFolder,
   FaCommentDots,
   FaPills,
-  FaCreditCard,
   FaCog,
   FaUsers,
-  FaFileAlt,
-  FaInbox,
-  FaChartBar,
-  FaBuilding,
 } from "react-icons/fa";
 
-import { NAVIGATION } from "../data/healthData";
-
-const icons = {
-  home: FaHome,
-  calendar: FaCalendarAlt,
-  folder: FaFolder,
-  message: FaCommentDots,
-  pill: FaPills,
-  card: FaCreditCard,
-  settings: FaCog,
-  users: FaUsers,
-  file: FaFileAlt,
-  inbox: FaInbox,
-  bar: FaChartBar,
-  building: FaBuilding,
-};
+const navigation = [
+  {
+    label: "Dashboard",
+    key: "dashboard",
+    icon: FaHome,
+  },
+  {
+    label: "Appointments",
+    key: "appointments",
+    icon: FaCalendarAlt,
+  },
+  {
+    label: "Doctors",
+    key: "doctors",
+    icon: FaUsers,
+  },
+  {
+    label: "Prescriptions",
+    key: "prescriptions",
+    icon: FaPills,
+  },
+  {
+    label: "Health Records",
+    key: "records",
+    icon: FaFolder,
+  },
+  {
+    label: "Messages",
+    key: "messages",
+    icon: FaCommentDots,
+  },
+];
 
 export default function Sidebar({
-  role,
-  currentPage,
-  setPage,
-  railOpen,
-  setRailOpen,
-  setRole,
+  active,
+  onNavigate,
+  open,
+  onClose,
 }) {
-  const navigation = NAVIGATION[role] || NAVIGATION.patient;
-
-  function handleNavigation(page) {
-    setPage(page);
-    setRailOpen(false);
-  }
-
   return (
     <>
-      {/* Mobile overlay */}
-      {railOpen && (
+      {open && (
         <div
-          onClick={() => setRailOpen(false)}
-          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+          onClick={onClose}
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`
-          fixed left-0 top-0 z-40
-          flex h-screen w-[230px] flex-col
-          bg-[#12232B] px-[14px] py-[22px]
-          text-[#EDEFE9]
-          transition-transform duration-200
-          lg:sticky lg:z-auto lg:w-[232px]
+          fixed left-0 top-0 z-50
+          flex h-screen w-64 flex-col
+          bg-[#12232B] p-5 text-[#EDEFE9]
+          transition-transform duration-300
+          ${open ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
-          ${railOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
-        {/* Brand */}
-        <div className="flex items-center gap-2.5 px-2 pb-[22px]">
-          <div className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-lg bg-[#1F6F63]">
-            <FaHeartbeat size={17} />
+        {/* Logo */}
+        <div className="mb-8 flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1F6F63]">
+            <FaHeartbeat size={18} />
           </div>
 
-          <span className="font-['Newsreader'] text-lg font-semibold">
+          <span className="font-['Newsreader'] text-xl font-semibold">
             Meridian
           </span>
         </div>
 
         {/* Navigation */}
-        <nav className="mt-1.5 flex flex-col gap-0.5">
+        <nav className="flex flex-col gap-1">
           {navigation.map((item) => {
-            const Icon = icons[item.icon];
-
-            if (!Icon) {
-              return null;
-            }
-
-            const active = currentPage === item.id;
+            const Icon = item.icon;
+            const isActive = active === item.key;
 
             return (
               <button
-                key={item.id}
+                key={item.key}
                 type="button"
-                onClick={() => handleNavigation(item.id)}
+                onClick={() => {
+                  onNavigate(item.key);
+                  onClose();
+                }}
                 className={`
-                  flex w-full items-center gap-[11px]
-                  rounded-lg border-0 px-2.5 py-[9px]
-                  text-left text-[14.5px] font-medium
-                  transition-colors
+                  flex w-full items-center gap-3
+                  rounded-lg px-3 py-3
+                  text-left text-sm font-medium
+                  transition
                   ${
-                    active
-                      ? "bg-white/10 text-white"
-                      : "text-white/70 hover:bg-white/5 hover:text-white"
+                    isActive
+                      ? "bg-[#1F6F63] text-white"
+                      : "text-white/65 hover:bg-white/10 hover:text-white"
                   }
                 `}
               >
@@ -115,45 +111,25 @@ export default function Sidebar({
           })}
         </nav>
 
-        {/* Push selector to bottom */}
-        <div className="flex-1" />
-
-        {/* Role selector */}
-        <div className="mt-2.5 border-t border-white/10 pt-3.5">
-          <p className="px-2.5 pb-2 text-xs text-white/45">
-            Viewing as
-          </p>
-
-          <div className="flex gap-[5px] px-0.5">
-            {["patient", "provider", "admin"].map((item) => {
-              const active = role === item;
-
-              return (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => {
-                    setRole(item);
-                    setPage("dashboard");
-                    setRailOpen(false);
-                  }}
-                  className={`
-                    flex-1 rounded-[7px]
-                    border px-1 py-[7px]
-                    text-[12.5px] font-medium capitalize
-                    transition-colors
-                    ${
-                      active
-                        ? "border-[#1F6F63] bg-[#1F6F63] text-white"
-                        : "border-white/15 bg-transparent text-white/60 hover:bg-white/5"
-                    }
-                  `}
-                >
-                  {item}
-                </button>
-              );
-            })}
-          </div>
+        {/* Bottom */}
+        <div className="mt-auto border-t border-white/10 pt-4">
+          <button
+            type="button"
+            onClick={() => {
+              onNavigate("profile");
+              onClose();
+            }}
+            className="
+              flex w-full items-center gap-3
+              rounded-lg px-3 py-3
+              text-left text-sm font-medium
+              text-white/65
+              hover:bg-white/10 hover:text-white
+            "
+          >
+            <FaCog size={17} />
+            <span>Settings</span>
+          </button>
         </div>
       </aside>
     </>

@@ -16,6 +16,47 @@ export default function PatientDashboard({
   onBookAppointment,
   onNavigate,
 }) {
+  const nextAppointment = PATIENT.nextAppointment || {
+    reason: "General consultation",
+    provider: "Dr. Michael Chen",
+    date: "September 9, 2026",
+    time: "2:00 PM",
+    type: "In-person visit",
+  };
+
+  const tasks = PATIENT.tasks || [
+    {
+      id: 1,
+      text: "Complete your health profile",
+    },
+    {
+      id: 2,
+      text: "Review your latest test results",
+    },
+    {
+      id: 3,
+      text: "Take your prescribed medication",
+    },
+  ];
+
+  const careTeam = PATIENT.careTeam || [
+    {
+      name: "Dr. Sarah Wilson",
+      specialty: "Cardiologist",
+      avatar: "https://i.pravatar.cc/150?img=47",
+    },
+    {
+      name: "Dr. Michael Chen",
+      specialty: "General Physician",
+      avatar: "https://i.pravatar.cc/150?img=11",
+    },
+    {
+      name: "Dr. Emily Carter",
+      specialty: "Dermatologist",
+      avatar: "https://i.pravatar.cc/150?img=32",
+    },
+  ];
+
   return (
     <main>
       {/* Page heading */}
@@ -26,7 +67,7 @@ export default function PatientDashboard({
           </p>
 
           <h1 className="m-0 mb-1.5 font-['Newsreader'] text-[30px] font-semibold leading-tight text-[#12232B]">
-            Good afternoon, Jordan
+            Good afternoon, {PATIENT.firstName || "Alex"}
           </h1>
         </div>
 
@@ -45,9 +86,6 @@ export default function PatientDashboard({
           rounded-2xl bg-[#12232B] px-7 py-[26px]
           text-[#EDEFE9] shadow-sm
         "
-        style={{
-          animation: "rise .5s ease both",
-        }}
       >
         <div>
           <div className="mb-1.5 text-[12.5px] font-semibold text-[#7C9A78]">
@@ -55,18 +93,17 @@ export default function PatientDashboard({
           </div>
 
           <h2 className="m-0 mb-1.5 font-['Newsreader'] text-[22px] font-semibold">
-            {PATIENT.nextAppointment.reason} with{" "}
-            {PATIENT.nextAppointment.provider}
+            {nextAppointment.reason} with{" "}
+            {nextAppointment.provider}
           </h2>
 
           <p className="m-0 text-[13.5px] text-[rgba(237,239,233,0.65)]">
-            {PATIENT.nextAppointment.date} at{" "}
-            {PATIENT.nextAppointment.time} ·{" "}
-            {PATIENT.nextAppointment.type}
+            {nextAppointment.date} at {nextAppointment.time} ·{" "}
+            {nextAppointment.type}
           </p>
         </div>
 
-        <div className="flex gap-2.5">
+        <div className="flex flex-wrap gap-2.5">
           <Button
             icon={<FaVideo size={15} />}
             onClick={() => alert("Joining video visit…")}
@@ -93,16 +130,15 @@ export default function PatientDashboard({
       <div className="mt-[22px] grid gap-5 lg:grid-cols-[1.5fr_1fr]">
         {/* LEFT */}
         <div className="flex flex-col gap-5">
-
           {/* Tasks */}
           <Panel>
             <PanelHeader
               title="To do"
-              hint={`${PATIENT.tasks.length} open`}
+              subtitle={`${tasks.length} open`}
             />
 
             <div>
-              {PATIENT.tasks.map((task) => (
+              {tasks.map((task) => (
                 <div
                   key={task.id}
                   className="
@@ -134,7 +170,7 @@ export default function PatientDashboard({
           <Panel>
             <PanelHeader
               title="Health snapshot"
-              hint="Last 6 visits"
+              subtitle="Last 6 visits"
             />
 
             <div className="px-6 py-[22px]">
@@ -143,7 +179,6 @@ export default function PatientDashboard({
               <div className="mt-3 flex flex-wrap gap-3.5">
                 <div className="flex items-center gap-[7px] text-[13px] text-[#4B5B5A]">
                   <span className="h-[9px] w-[9px] rounded-sm bg-[#1F6F63]" />
-
                   Systolic blood pressure (mmHg)
                 </div>
               </div>
@@ -153,13 +188,12 @@ export default function PatientDashboard({
 
         {/* RIGHT */}
         <div className="flex flex-col gap-5">
-
           {/* Care team */}
           <Panel>
             <PanelHeader title="Care team" />
 
             <div>
-              {PATIENT.careTeam.map((person) => (
+              {careTeam.map((person) => (
                 <div
                   key={person.name}
                   className="
@@ -170,8 +204,9 @@ export default function PatientDashboard({
                   "
                 >
                   <Avatar
-                    initials={person.initials}
-                    size="small"
+                    src={person.avatar}
+                    name={person.name}
+                    size="sm"
                   />
 
                   <div className="min-w-0">
@@ -202,13 +237,13 @@ export default function PatientDashboard({
               <QuickAction
                 icon={<FaPills size={17} />}
                 text="Request a prescription refill"
-                onClick={() => onNavigate("medications")}
+                onClick={() => onNavigate("prescriptions")}
               />
 
               <QuickAction
                 icon={<FaCreditCard size={17} />}
                 text="View billing & pay a balance"
-                onClick={() => onNavigate("billing")}
+                onClick={() => alert("Billing coming soon")}
               />
             </div>
           </Panel>
@@ -218,16 +253,7 @@ export default function PatientDashboard({
   );
 }
 
-
-/* =========================
-   QUICK ACTION
-========================= */
-
-function QuickAction({
-  icon,
-  text,
-  onClick,
-}) {
+function QuickAction({ icon, text, onClick }) {
   return (
     <button
       type="button"
@@ -256,11 +282,6 @@ function QuickAction({
     </button>
   );
 }
-
-
-/* =========================
-   HEALTH CHART
-========================= */
 
 function HealthChart() {
   const points = [
@@ -298,7 +319,6 @@ function HealthChart() {
               stopColor="#1F6F63"
               stopOpacity="0.22"
             />
-
             <stop
               offset="100%"
               stopColor="#1F6F63"

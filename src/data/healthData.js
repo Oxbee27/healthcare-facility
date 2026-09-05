@@ -1,232 +1,133 @@
-export const PROVIDERS = [
+export const PATIENT = {
+  name: "Alex Johnson",
+  firstName: "Alex",
+  avatar: "https://i.pravatar.cc/150?img=12",
+  bloodGroup: "O+",
+  age: 29,
+};
+
+export const APPOINTMENTS = [
   {
-    id: "p1",
-    name: "Dr. Elena Marsh",
-    specialty: "Family Medicine",
-    initials: "EM",
+    id: 1,
+    doctor: "Dr. Sarah Wilson",
+    specialty: "Cardiologist",
+    date: "Today",
+    time: "10:30 AM",
+    type: "Video consultation",
+    avatar: "https://i.pravatar.cc/150?img=47",
+    status: "Upcoming",
   },
   {
-    id: "p2",
-    name: "Dr. Raj Kapoor",
-    specialty: "Cardiology",
-    initials: "RK",
+    id: 2,
+    doctor: "Dr. Michael Chen",
+    specialty: "General Physician",
+    date: "Sep 09",
+    time: "2:00 PM",
+    type: "In-person visit",
+    avatar: "https://i.pravatar.cc/150?img=11",
+    status: "Confirmed",
   },
   {
-    id: "p3",
-    name: "Dr. Noor Haddad",
-    specialty: "Dermatology",
-    initials: "NH",
-  },
-  {
-    id: "p4",
-    name: "Dr. Sam Okafor",
-    specialty: "Behavioral Health",
-    initials: "SO",
-  },
-  {
-    id: "p5",
-    name: "Amelia Cho, NP",
-    specialty: "Internal Medicine",
-    initials: "AC",
+    id: 3,
+    doctor: "Dr. Emily Carter",
+    specialty: "Dermatologist",
+    date: "Sep 15",
+    time: "11:00 AM",
+    type: "Video consultation",
+    avatar: "https://i.pravatar.cc/150?img=32",
+    status: "Confirmed",
   },
 ];
 
-export const PATIENT = {
-  id: "jb",
-  name: "Jordan Blake",
-  age: 34,
-  sex: "F",
-  mrn: "MRN-30291",
-  initials: "JB",
-
-  conditions: [
-    "Seasonal allergies",
-    "Mild hypertension",
-  ],
-
-  allergies: [
-    "Penicillin",
-    "Shellfish",
-  ],
-
-  provider: "Dr. Elena Marsh",
-
-  medications: [
-    {
-      id: "m1",
-      name: "Lisinopril",
-      dose: "10mg",
-      frequency: "Once daily",
-      status: "Active",
-      refillsLeft: 2,
-    },
-    {
-      id: "m2",
-      name: "Loratadine",
-      dose: "10mg",
-      frequency: "As needed",
-      status: "Active",
-      refillsLeft: 0,
-    },
-    {
-      id: "m3",
-      name: "Sertraline",
-      dose: "50mg",
-      frequency: "Once daily",
-      status: "Active",
-      refillsLeft: 1,
-    },
-  ],
-
-  tasks: [
-    {
-      id: "t1",
-      text: "Flu shot due for the 2026 season",
-    },
-    {
-      id: "t2",
-      text: "Complete pre-visit questionnaire for Sep 8 appointment",
-    },
-    {
-      id: "t3",
-      text: "New lab results available to review",
-    },
-  ],
-
-  careTeam: [
-    {
-      name: "Dr. Elena Marsh",
-      initials: "EM",
-      specialty: "Family Medicine — Primary care",
-    },
-    {
-      name: "Dr. Sam Okafor",
-      initials: "SO",
-      specialty: "Behavioral Health",
-    },
-  ],
-
-  nextAppointment: {
-    reason: "Blood pressure follow-up",
-    provider: "Dr. Elena Marsh",
-    date: "Sep 8, 2026",
-    time: "10:30 AM",
-    type: "Video visit",
+export const DOCTORS = [
+  {
+    id: 1,
+    name: "Dr. Sarah Wilson",
+    specialty: "Cardiologist",
+    rating: 4.9,
+    experience: "12 years",
+    avatar: "https://i.pravatar.cc/150?img=47",
   },
-};
+  {
+    id: 2,
+    name: "Dr. Michael Chen",
+    specialty: "General Physician",
+    rating: 4.8,
+    experience: "9 years",
+    avatar: "https://i.pravatar.cc/150?img=11",
+  },
+  {
+    id: 3,
+    name: "Dr. Emily Carter",
+    specialty: "Dermatologist",
+    rating: 4.9,
+    experience: "10 years",
+    avatar: "https://i.pravatar.cc/150?img=32",
+  },
+  {
+    id: 4,
+    name: "Dr. James Brown",
+    specialty: "Neurologist",
+    rating: 4.7,
+    experience: "15 years",
+    avatar: "https://i.pravatar.cc/150?img=68",
+  },
+];
 
-export const NAVIGATION = {
-  patient: [
-    {
-      id: "dashboard",
-      label: "Dashboard",
-      icon: "home",
-    },
-    {
-      id: "appointments",
-      label: "Appointments",
-      icon: "calendar",
-    },
-    {
-      id: "records",
-      label: "Medical records",
-      icon: "folder",
-    },
-    {
-      id: "messages",
-      label: "Messages",
-      icon: "message",
-    },
-    {
-      id: "medications",
-      label: "Medications",
-      icon: "pill",
-    },
-    {
-      id: "billing",
-      label: "Billing",
-      icon: "card",
-    },
-    {
-      id: "settings",
-      label: "Settings",
-      icon: "settings",
-    },
-  ],
-
-  provider: [
-    {
-      id: "dashboard",
-      label: "Dashboard",
-      icon: "home",
-    },
-    {
-      id: "schedule",
-      label: "Schedule",
-      icon: "calendar",
-    },
-    {
-      id: "patients",
-      label: "Patients",
-      icon: "users",
-    },
-    {
-      id: "chart",
-      label: "Patient chart",
-      icon: "file",
-    },
-    {
-      id: "inbox",
-      label: "Inbox",
-      icon: "inbox",
-    },
-    {
-      id: "settings",
-      label: "Settings",
-      icon: "settings",
-    },
-  ],
-
-  admin: [
-    {
-      id: "dashboard",
-      label: "Overview",
-      icon: "home",
-    },
-    {
-      id: "analytics",
-      label: "Analytics",
-      icon: "bar",
-    },
-    {
-      id: "departments",
-      label: "Departments",
-      icon: "building",
-    },
-    {
-      id: "settings",
-      label: "Settings",
-      icon: "settings",
-    },
-  ],
-};
+export const PRESCRIPTIONS = [
+  {
+    name: "Amoxicillin",
+    dose: "500mg",
+    instruction: "1 capsule, 3 times daily",
+    remaining: 12,
+  },
+  {
+    name: "Vitamin D3",
+    dose: "1000 IU",
+    instruction: "1 tablet, once daily",
+    remaining: 21,
+  },
+  {
+    name: "Lisinopril",
+    dose: "10mg",
+    instruction: "1 tablet every morning",
+    remaining: 8,
+  },
+];
 
 export const ROLE_IDENTITY = {
-  patient: {
-    name: "Jordan Blake",
-    subtitle: "Patient",
-    initials: "JB",
-  },
-
-  provider: {
-    name: "Dr. Elena Marsh",
-    subtitle: "Family Medicine",
-    initials: "EM",
-  },
-
-  admin: {
-    name: "Priya Nair",
-    subtitle: "Practice Administrator",
-    initials: "PN",
-  },
+  role: "Patient",
+  name: PATIENT.name,
+  avatar: PATIENT.avatar,
 };
+
+export const NAVIGATION = [
+  {
+    label: "Dashboard",
+    key: "dashboard",
+  },
+  {
+    label: "Appointments",
+    key: "appointments",
+  },
+  {
+    label: "Doctors",
+    key: "doctors",
+  },
+  {
+    label: "Prescriptions",
+    key: "prescriptions",
+  },
+  {
+    label: "Health Records",
+    key: "records",
+  },
+  {
+    label: "Messages",
+    key: "messages",
+  },
+  {
+    label: "Profile",
+    key: "profile",
+  },
+];
