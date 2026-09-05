@@ -134,7 +134,7 @@ export default function PatientDashboard({
           <Panel>
             <PanelHeader
               title="To do"
-              subtitle={`${tasks.length} open`}
+              hint={`${tasks.length} open`}
             />
 
             <div>
@@ -170,7 +170,7 @@ export default function PatientDashboard({
           <Panel>
             <PanelHeader
               title="Health snapshot"
-              subtitle="Last 6 visits"
+              hint="Last 6 visits"
             />
 
             <div className="px-6 py-[22px]">
