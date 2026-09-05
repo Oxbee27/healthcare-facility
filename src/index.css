@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap');
+
+@theme {
+  --font-serif: 'Newsreader', serif;
+  --font-sans: 'IBM Plex Sans', sans-serif;
+  
+  --color-ink: #12232B;
+  --color-paper: #F3F5EF;
+  --color-teal-brand: #1F6F63;
+  --color-teal-dark: #154F46;
+  --color-teal-tint: #E4EFEA;
+  --color-clay: #C1622E;
+  --color-amber-tint: #F3EADA;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
