@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { PATIENTS } from "./data/healthData";
 
 import Topbar from "./components/Topbar";
@@ -11,6 +10,7 @@ import Appointments from "./pages/Appointments";
 import Doctors from "./pages/Doctors";
 import Prescriptions from "./pages/Prescriptions";
 import HealthRecords from "./pages/HealthRecords";
+import Billing from "./pages/Billing";
 import Placeholder from "./pages/Placeholder";
 
 export default function App() {
@@ -18,20 +18,17 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(PATIENTS[0]);
 
-  // Change page
   const navigate = (page) => {
     setActive(page);
     setMobileOpen(false);
   };
 
-  // Change selected patient
   const selectPatient = (patient) => {
     setSelectedPatient(patient);
     setActive("dashboard");
     setMobileOpen(false);
   };
 
-  // Render active page
   const renderPage = () => {
     switch (active) {
       case "dashboard":
@@ -45,17 +42,13 @@ export default function App() {
         );
 
       case "patients":
-        return (
-          <Patients
-            onSelectPatient={selectPatient}
-          />
-        );
+        return <Patients onSelectPatient={selectPatient} />;
 
       case "appointments":
         return (
           <Appointments
             onBookAppointment={() =>
-              alert("Booking form coming soon")
+              alert("Appointment booking form coming soon")
             }
           />
         );
@@ -63,9 +56,7 @@ export default function App() {
       case "doctors":
         return (
           <Doctors
-            onBookAppointment={() =>
-              navigate("appointments")
-            }
+            onBookAppointment={() => navigate("appointments")}
           />
         );
 
@@ -73,11 +64,10 @@ export default function App() {
         return <Prescriptions />;
 
       case "records":
-        return (
-          <HealthRecords
-            patient={selectedPatient}
-          />
-        );
+        return <HealthRecords patient={selectedPatient} />;
+
+      case "billing":
+        return <Billing onNavigate={navigate} />;
 
       case "messages":
         return (
@@ -99,9 +89,7 @@ export default function App() {
         return (
           <PatientDashboard
             patient={selectedPatient}
-            onBookAppointment={() =>
-              navigate("appointments")
-            }
+            onBookAppointment={() => navigate("appointments")}
             onNavigate={navigate}
             onSelectPatient={selectPatient}
           />
@@ -111,8 +99,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F3F5EF]">
-
-      {/* Sidebar */}
       <Sidebar
         active={active}
         onNavigate={navigate}
@@ -120,20 +106,15 @@ export default function App() {
         onClose={() => setMobileOpen(false)}
       />
 
-      {/* Main content */}
       <div className="min-h-screen lg:ml-64">
-
-        {/* Topbar */}
         <Topbar
           patient={selectedPatient}
           onMenu={() => setMobileOpen(true)}
         />
 
-        {/* Page content */}
         <main className="mx-auto w-full max-w-[1500px] p-4 sm:p-6 lg:p-8">
           {renderPage()}
         </main>
-
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ export default function Sidebar({
           </div>
 
           <span className="font-['Newsreader'] text-xl font-semibold">
-            Meridian
+            Havillah Health
           </span>
         </div>
 

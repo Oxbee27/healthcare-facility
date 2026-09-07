@@ -5,12 +5,17 @@ import {
   FaCommentDots,
   FaPills,
   FaCreditCard,
+  FaHeartbeat,
+  FaShieldAlt,
 } from "react-icons/fa";
 
 import Button from "../components/Button";
 import Avatar from "../components/Avatar";
 import { Panel, PanelHeader } from "../components/Panel";
 import { PATIENTS } from "../data/healthData";
+
+const NIGERIA_HEALTHCARE_IMAGE =
+  "https://www.lasuth.org.ng/clinical_department/1737581777yYAyd65UUrgHy0qUpkkyK6uw.jpg";
 
 export default function PatientDashboard({
   patient,
@@ -51,28 +56,30 @@ export default function PatientDashboard({
     },
   ];
 
-  const careTeam = patient.careTeam || [
-    {
-      name: "Dr. Sarah Wilson",
-      specialty: "Cardiologist",
-      avatar: "https://i.pravatar.cc/150?img=47",
-    },
-    {
-      name: "Dr. Michael Chen",
-      specialty: "General Physician",
-      avatar: "https://i.pravatar.cc/150?img=11",
-    },
-    {
-      name: "Dr. Emily Carter",
-      specialty: "Dermatologist",
-      avatar: "https://i.pravatar.cc/150?img=32",
-    },
-  ];
-
+ const careTeam = patient.careTeam || [
+  {
+    name: "Dr. Chinedu Okafor",
+    specialty: "Cardiologist",
+    avatar:
+      "https://cardinalcarehospital.com/wp-content/uploads/2025/08/Doc-Monday.jpg",
+  },
+  {
+    name: "Dr. Amina Yusuf",
+    specialty: "General Physician",
+    avatar:
+      "https://borromeohospital.com/wp-content/uploads/2022/09/DSC9484-Edit-scaled.jpg",
+  },
+  {
+    name: "Dr. Adaeze Nwosu",
+    specialty: "Dermatologist",
+    avatar:
+      "https://clinikehr.com/testimonials/dr-jethro-magaji.jpg",
+  },
+];
   return (
     <main className="w-full">
-      {/* Page heading */}
-      <div className="mb-[26px] flex flex-wrap items-end justify-between gap-5">
+      {/* INTRO */}
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-5">
         <div>
           <p className="mb-1 text-[13px] font-medium text-[#4B5B5A]">
             Saturday, September 5
@@ -91,7 +98,6 @@ export default function PatientDashboard({
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          {/* Patient selector */}
           <select
             value={patient.id}
             onChange={(e) => {
@@ -103,17 +109,7 @@ export default function PatientDashboard({
                 onSelectPatient(selected);
               }
             }}
-            className="
-              max-w-full
-              rounded-lg
-              border border-[rgba(18,35,43,0.12)]
-              bg-white
-              px-3 py-2.5
-              text-sm font-medium
-              text-[#12232B]
-              outline-none
-              focus:border-[#1F6F63]
-            "
+            className="max-w-full rounded-lg border border-[rgba(18,35,43,0.12)] bg-white px-3 py-2.5 text-sm font-medium text-[#12232B] outline-none transition focus:border-[#1F6F63]"
           >
             {PATIENTS.map((item) => (
               <option key={item.id} value={item.id}>
@@ -131,17 +127,73 @@ export default function PatientDashboard({
         </div>
       </div>
 
-      {/* Next appointment */}
-      <section
-        className="
-          flex flex-wrap items-center justify-between gap-6
-          rounded-2xl bg-[#12232B]
-          px-5 py-6
-          sm:px-7
-          text-[#EDEFE9]
-          shadow-sm
-        "
-      >
+      {/* NIGERIAN HEALTHCARE HERO */}
+      <section className="group relative mb-5 min-h-[330px] overflow-hidden rounded-3xl bg-[#12232B] shadow-sm">
+        <img
+          src={NIGERIA_HEALTHCARE_IMAGE}
+          alt="Doctor consulting with a patient in a Nigerian hospital"
+          className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 ease-out group-hover:scale-105"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-r from-[#12232B] via-[#12232B]/75 to-transparent" />
+
+        <div className="relative z-10 flex min-h-[330px] max-w-2xl flex-col justify-center px-6 py-10 sm:px-9">
+          <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm animate-[fadeIn_0.7s_ease-out]">
+            <FaHeartbeat className="text-[#8FB58B]" />
+            Connected healthcare in Nigeria
+          </div>
+
+          <h2 className="max-w-xl font-['Newsreader'] text-3xl font-semibold leading-tight text-white sm:text-4xl">
+            Better care starts with{" "}
+            <span className="text-[#9FC39A]">
+              better connection.
+            </span>
+          </h2>
+
+          <p className="mt-4 max-w-lg text-sm leading-6 text-white/75 sm:text-[15px]">
+            Manage appointments, health records, prescriptions, care-team
+            communication and payments from one secure healthcare platform.
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button
+              onClick={onBookAppointment}
+              icon={<FaPlus size={13} />}
+            >
+              Book an appointment
+            </Button>
+
+            <button
+              type="button"
+              onClick={() => onNavigate("records")}
+              className="rounded-lg border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+            >
+              View health records
+            </button>
+          </div>
+        </div>
+
+        <div className="absolute bottom-5 right-5 hidden rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md sm:block animate-[float_4s_ease-in-out_infinite]">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1F6F63]">
+              <FaShieldAlt />
+            </div>
+
+            <div>
+              <p className="text-xs text-white/60">
+                Care status
+              </p>
+
+              <p className="text-sm font-semibold">
+                Connected & protected
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEXT APPOINTMENT */}
+      <section className="flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-[#12232B] px-5 py-6 text-[#EDEFE9] shadow-sm sm:px-7">
         <div className="min-w-0">
           <div className="mb-1.5 text-[12.5px] font-semibold text-[#7C9A78]">
             Your next visit
@@ -169,23 +221,18 @@ export default function PatientDashboard({
           <Button
             variant="outline"
             onClick={() => onNavigate("appointments")}
-            className="
-              border-[rgba(237,239,233,0.3)]
-              bg-transparent
-              text-[#EDEFE9]
-              hover:border-[rgba(237,239,233,0.5)]
-            "
+            className="border-[rgba(237,239,233,0.3)] bg-transparent text-[#EDEFE9] hover:border-[rgba(237,239,233,0.5)]"
           >
             View details
           </Button>
         </div>
       </section>
 
-      {/* Main dashboard */}
+      {/* MAIN DASHBOARD */}
       <div className="mt-[22px] grid gap-5 lg:grid-cols-[1.5fr_1fr]">
         {/* LEFT */}
         <div className="flex flex-col gap-5">
-          {/* Tasks */}
+          {/* TASKS */}
           <Panel>
             <PanelHeader
               title="To do"
@@ -193,17 +240,18 @@ export default function PatientDashboard({
             />
 
             <div>
-              {tasks.map((task) => (
+              {tasks.map((task, index) => (
                 <div
                   key={task.id}
-                  className="
-                    flex flex-wrap items-center gap-4
-                    border-b border-[rgba(18,35,43,0.07)]
-                    px-5 py-4
-                    sm:px-6
-                    last:border-b-0
-                  "
+                  className="flex flex-wrap items-center gap-4 border-b border-[rgba(18,35,43,0.07)] px-5 py-4 transition duration-300 hover:bg-[#F8F9F5] last:border-b-0 sm:px-6"
+                  style={{
+                    animation: `slideUp 0.45s ease-out ${index * 0.08}s both`,
+                  }}
                 >
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#E4EFEA] text-xs font-bold text-[#1F6F63]">
+                    {index + 1}
+                  </div>
+
                   <div className="min-w-0 flex-1">
                     <p className="m-0 text-[14.5px] font-semibold">
                       {task.text}
@@ -222,7 +270,7 @@ export default function PatientDashboard({
             </div>
           </Panel>
 
-          {/* Health snapshot */}
+          {/* HEALTH SNAPSHOT */}
           <Panel>
             <PanelHeader
               title="Health snapshot"
@@ -244,27 +292,26 @@ export default function PatientDashboard({
 
         {/* RIGHT */}
         <div className="flex flex-col gap-5">
-          {/* Care team */}
+          {/* CARE TEAM */}
           <Panel>
             <PanelHeader title="Care team" />
 
             <div>
-              {careTeam.map((person) => (
+              {careTeam.map((person, index) => (
                 <div
                   key={person.name}
-                  className="
-                    flex items-center gap-4
-                    border-b border-[rgba(18,35,43,0.07)]
-                    px-5 py-4
-                    sm:px-6
-                    last:border-b-0
-                  "
+                  className="flex items-center gap-4 border-b border-[rgba(18,35,43,0.07)] px-5 py-4 transition duration-300 hover:bg-[#F8F9F5] last:border-b-0 sm:px-6"
+                  style={{
+                    animation: `slideRight 0.5s ease-out ${index * 0.1}s both`,
+                  }}
                 >
-                  <Avatar
-                    src={person.avatar}
-                    name={person.name}
-                    size="sm"
-                  />
+                  <div className="transition duration-300 hover:scale-110">
+                    <Avatar
+                      src={person.avatar}
+                      name={person.name}
+                      size="sm"
+                    />
+                  </div>
 
                   <div className="min-w-0">
                     <p className="m-0 mb-[3px] text-[14.5px] font-semibold">
@@ -280,7 +327,7 @@ export default function PatientDashboard({
             </div>
           </Panel>
 
-          {/* Quick actions */}
+          {/* QUICK ACTIONS */}
           <Panel>
             <PanelHeader title="Quick actions" />
 
@@ -300,12 +347,69 @@ export default function PatientDashboard({
               <QuickAction
                 icon={<FaCreditCard size={17} />}
                 text="View billing & pay a balance"
-                onClick={() => alert("Billing coming soon")}
+                onClick={() => onNavigate("billing")}
               />
             </div>
           </Panel>
         </div>
       </div>
+
+      {/* ANIMATION STYLES */}
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideRight {
+          from {
+            opacity: 0;
+            transform: translateX(15px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(-7px);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }
@@ -315,17 +419,9 @@ function QuickAction({ icon, text, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="
-        flex w-full items-center gap-2
-        border-b border-[rgba(18,35,43,0.07)]
-        bg-transparent px-5 py-4
-        text-left
-        sm:px-6
-        last:border-b-0
-        hover:bg-[#F3F5EF]
-      "
+      className="group flex w-full items-center gap-2 border-b border-[rgba(18,35,43,0.07)] bg-transparent px-5 py-4 text-left transition duration-300 hover:bg-[#F3F5EF] sm:px-6"
     >
-      <div className="flex items-center text-[#1F6F63]">
+      <div className="flex items-center text-[#1F6F63] transition duration-300 group-hover:scale-110">
         {icon}
       </div>
 
@@ -335,7 +431,7 @@ function QuickAction({ icon, text, onClick }) {
 
       <FaChevronRight
         size={14}
-        className="text-[#4B5B5A]"
+        className="text-[#4B5B5A] transition duration-300 group-hover:translate-x-1"
       />
     </button>
   );
@@ -377,6 +473,7 @@ function HealthChart() {
               stopColor="#1F6F63"
               stopOpacity="0.22"
             />
+
             <stop
               offset="100%"
               stopColor="#1F6F63"
