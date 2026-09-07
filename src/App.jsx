@@ -4,19 +4,44 @@ import { PATIENTS } from "./data/healthData";
 import Topbar from "./components/Topbar";
 import Sidebar from "./components/Sidebar";
 
+import Login from "./pages/Login";
 import PatientDashboard from "./pages/PatientDashboard";
 import Patients from "./pages/Patients";
 import Appointments from "./pages/Appointments";
 import Doctors from "./pages/Doctors";
+import DoctorDashboard from "./pages/DoctorDashboard";
 import Prescriptions from "./pages/Prescriptions";
 import HealthRecords from "./pages/HealthRecords";
 import Billing from "./pages/Billing";
+import Messages from "./pages/Messages";
 import Placeholder from "./pages/Placeholder";
 
 export default function App() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+
   const [active, setActive] = useState("dashboard");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(PATIENTS[0]);
+
+  const handleLogin = (role) => {
+    setAuthenticated(true);
+    setUserRole(role);
+    setMobileOpen(false);
+
+    if (role === "doctor") {
+      setActive("doctor");
+    } else {
+      setActive("dashboard");
+    }
+  };
+
+  const handleLogout = () => {
+    setAuthenticated(false);
+    setUserRole(null);
+    setActive("dashboard");
+    setMobileOpen(false);
+  };
 
   const navigate = (page) => {
     setActive(page);
@@ -28,6 +53,14 @@ export default function App() {
     setActive("dashboard");
     setMobileOpen(false);
   };
+
+  if (!authenticated) {
+    return <Login onLogin={handleLogin} />;
+  }
+
+  if (userRole === "doctor") {
+    return <DoctorDashboard onLogout={handleLogout} />;
+  }
 
   const renderPage = () => {
     switch (active) {
@@ -70,12 +103,7 @@ export default function App() {
         return <Billing onNavigate={navigate} />;
 
       case "messages":
-        return (
-          <Placeholder
-            title="Messages"
-            description="Chat securely with your doctors and care team."
-          />
-        );
+        return <Messages />;
 
       case "profile":
         return (

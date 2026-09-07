@@ -1,14 +1,14 @@
 export const PATIENTS = [
   {
     id: 1,
-    name: "Alex Johnson",
-    firstName: "Alex",
-    avatar: "https://i.pravatar.cc/150?img=12",
+    name: "Chinedu Okafor",
+    firstName: "Chinedu",
+    avater: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80",
     bloodGroup: "O+",
     age: 29,
     gender: "Male",
     phone: "+234 801 234 5678",
-    email: "alex.johnson@example.com",
+    email: "chinedu.okafor@example.com",
 
     vitals: {
       bloodPressure: "118/76",
@@ -60,14 +60,14 @@ export const PATIENTS = [
 
   {
     id: 2,
-    name: "Sarah Williams",
-    firstName: "Sarah",
-    avatar: "https://i.pravatar.cc/150?img=45",
+    name: "Amaka Eze",
+    firstName: "Amaka",
+    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=300&q=80",
     bloodGroup: "A+",
     age: 34,
     gender: "Female",
     phone: "+234 802 345 6789",
-    email: "sarah.williams@example.com",
+    email: "amaka.eze@example.com",
 
     vitals: {
       bloodPressure: "124/80",
@@ -119,14 +119,14 @@ export const PATIENTS = [
 
   {
     id: 3,
-    name: "Michael Brown",
-    firstName: "Michael",
-    avatar: "https://i.pravatar.cc/150?img=51",
+    name: "Emeka Nwosu",
+    firstName: "Emeka",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
     bloodGroup: "B+",
     age: 42,
     gender: "Male",
     phone: "+234 803 456 7890",
-    email: "michael.brown@example.com",
+    email: "emeka.nwosu@example.com",
 
     vitals: {
       bloodPressure: "130/84",
@@ -178,14 +178,14 @@ export const PATIENTS = [
 
   {
     id: 4,
-    name: "Emily Davis",
-    firstName: "Emily",
-    avatar: "https://i.pravatar.cc/150?img=32",
+    name: "Ngozi Adeyemi",
+    firstName: "Ngozi",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
     bloodGroup: "AB+",
     age: 27,
     gender: "Female",
     phone: "+234 804 567 8901",
-    email: "emily.davis@example.com",
+    email: "ngozi.adeyemi@example.com",
 
     vitals: {
       bloodPressure: "112/72",
@@ -231,14 +231,14 @@ export const PATIENTS = [
 
   {
     id: 5,
-    name: "Daniel Okafor",
-    firstName: "Daniel",
-    avatar: "https://i.pravatar.cc/150?img=68",
+    name: "Ibrahim Musa",
+    firstName: "Ibrahim",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80",
     bloodGroup: "O-",
     age: 38,
     gender: "Male",
     phone: "+234 805 678 9012",
-    email: "daniel.okafor@example.com",
+    email: "ibrahim.musa@example.com",
 
     vitals: {
       bloodPressure: "121/78",
@@ -282,7 +282,6 @@ export const PATIENTS = [
     ],
   },
 ];
-
 
 export const PATIENT = PATIENTS[0];
 

@@ -1,3 +1,4 @@
+
 import {
   FaPlus,
   FaVideo,
@@ -5,17 +6,12 @@ import {
   FaCommentDots,
   FaPills,
   FaCreditCard,
-  FaHeartbeat,
-  FaShieldAlt,
 } from "react-icons/fa";
 
 import Button from "../components/Button";
 import Avatar from "../components/Avatar";
 import { Panel, PanelHeader } from "../components/Panel";
 import { PATIENTS } from "../data/healthData";
-
-const NIGERIA_HEALTHCARE_IMAGE =
-  "https://www.lasuth.org.ng/clinical_department/1737581777yYAyd65UUrgHy0qUpkkyK6uw.jpg";
 
 export default function PatientDashboard({
   patient,
@@ -56,26 +52,27 @@ export default function PatientDashboard({
     },
   ];
 
- const careTeam = patient.careTeam || [
-  {
-    name: "Dr. Chinedu Okafor",
-    specialty: "Cardiologist",
-    avatar:
-      "https://cardinalcarehospital.com/wp-content/uploads/2025/08/Doc-Monday.jpg",
-  },
-  {
-    name: "Dr. Amina Yusuf",
-    specialty: "General Physician",
-    avatar:
-      "https://borromeohospital.com/wp-content/uploads/2022/09/DSC9484-Edit-scaled.jpg",
-  },
-  {
-    name: "Dr. Adaeze Nwosu",
-    specialty: "Dermatologist",
-    avatar:
-      "https://clinikehr.com/testimonials/dr-jethro-magaji.jpg",
-  },
-];
+  const careTeam = patient.careTeam || [
+    {
+      name: "Dr. Chinedu Okafor",
+      specialty: "Cardiologist",
+      avatar:
+        "https://cardinalcarehospital.com/wp-content/uploads/2025/08/Doc-Monday.jpg",
+    },
+    {
+      name: "Dr. Amina Yusuf",
+      specialty: "General Physician",
+      avatar:
+        "https://borromeohospital.com/wp-content/uploads/2022/09/DSC9484-Edit-scaled.jpg",
+    },
+    {
+      name: "Dr. Adaeze Nwosu",
+      specialty: "Dermatologist",
+      avatar:
+        "https://clinikehr.com/testimonials/dr-jethro-magaji.jpg",
+    },
+  ];
+
   return (
     <main className="w-full">
       {/* INTRO */}
@@ -127,30 +124,19 @@ export default function PatientDashboard({
         </div>
       </div>
 
-      {/* NIGERIAN HEALTHCARE HERO */}
-      <section className="group relative mb-5 min-h-[330px] overflow-hidden rounded-3xl bg-[#12232B] shadow-sm">
-        <img
-          src={NIGERIA_HEALTHCARE_IMAGE}
-          alt="Doctor consulting with a patient in a Nigerian hospital"
-          className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 ease-out group-hover:scale-105"
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-r from-[#12232B] via-[#12232B]/75 to-transparent" />
+      {/* HERO */}
+      <section className="relative mb-5 min-h-[330px] overflow-hidden rounded-3xl bg-[#DCEBE4] shadow-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#DCEBE4] via-[#E8F1EC] to-[#F3F5EF]" />
 
         <div className="relative z-10 flex min-h-[330px] max-w-2xl flex-col justify-center px-6 py-10 sm:px-9">
-          <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm animate-[fadeIn_0.7s_ease-out]">
-            <FaHeartbeat className="text-[#8FB58B]" />
-            Connected healthcare in Nigeria
-          </div>
-
-          <h2 className="max-w-xl font-['Newsreader'] text-3xl font-semibold leading-tight text-white sm:text-4xl">
+          <h2 className="max-w-xl font-['Newsreader'] text-3xl font-semibold leading-tight text-[#12232B] sm:text-4xl">
             Better care starts with{" "}
-            <span className="text-[#9FC39A]">
+            <span className="text-[#1F6F63]">
               better connection.
             </span>
           </h2>
 
-          <p className="mt-4 max-w-lg text-sm leading-6 text-white/75 sm:text-[15px]">
+          <p className="mt-4 max-w-lg text-sm leading-6 text-[#4B5B5A] sm:text-[15px]">
             Manage appointments, health records, prescriptions, care-team
             communication and payments from one secure healthcare platform.
           </p>
@@ -166,28 +152,10 @@ export default function PatientDashboard({
             <button
               type="button"
               onClick={() => onNavigate("records")}
-              className="rounded-lg border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+              className="rounded-lg border border-[#1F6F63]/30 bg-white/60 px-4 py-2.5 text-sm font-semibold text-[#1F6F63] backdrop-blur-sm transition hover:bg-white"
             >
               View health records
             </button>
-          </div>
-        </div>
-
-        <div className="absolute bottom-5 right-5 hidden rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md sm:block animate-[float_4s_ease-in-out_infinite]">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1F6F63]">
-              <FaShieldAlt />
-            </div>
-
-            <div>
-              <p className="text-xs text-white/60">
-                Care status
-              </p>
-
-              <p className="text-sm font-semibold">
-                Connected & protected
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -356,22 +324,12 @@ export default function PatientDashboard({
 
       {/* ANIMATION STYLES */}
       <style>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(12px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
         @keyframes slideUp {
           from {
             opacity: 0;
             transform: translateY(12px);
           }
+
           to {
             opacity: 1;
             transform: translateY(0);
@@ -383,20 +341,10 @@ export default function PatientDashboard({
             opacity: 0;
             transform: translateX(15px);
           }
+
           to {
             opacity: 1;
             transform: translateX(0);
-          }
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-
-          50% {
-            transform: translateY(-7px);
           }
         }
 
@@ -517,3 +465,6 @@ function HealthChart() {
     </div>
   );
 }
+
+
+
